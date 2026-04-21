@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocolo de Missão - Memory Game</title>
+    <link rel="stylesheet" href="instrucoesstyle.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="ui-wrapper">
+        
+        <div id="view-main">
+            <header class="ui-header">
+                <div class="scanline"></div>
+                <h1 class="glitch" data-text="MEMÓRIA">MEMÓRIA</h1>
+                <p class="ui-subtitle">Encontre os pares correspondentes antes que o tempo acabe.</p>
+            </header>
+
+            <main class="mode-selection-grid">
+                <div class="main-card">
+                    <div class="card-icon green-glow">🟢</div>
+                    <h3>Modo Livre</h3>
+                    <p>Jogue no seu ritmo, aqui você segue seu próprio ritmo!</p>
+                    <button class="btn-saber-mais" onclick="openModal('livre')">SABER MAIS</button>
+                </div>
+
+                <div class="main-card">
+                    <div class="card-icon blue-glow">⏱️</div>
+                    <h3>Modo Cronometrado</h3>
+                    <p>Complete o puzzle e quebre seu recorde!</p>
+                    <button class="btn-saber-mais" onclick="openModal('crono')">SABER MAIS</button>
+                </div>
+
+                <div class="main-card highlight-card">
+                    <div class="card-icon orange-glow">🔥</div>
+                    <h3>Desafios</h3>
+                    <p>Modos avançados para testar suas habilidades!</p>
+                    <button class="btn-saber-mais" onclick="showChallenges()">SABER MAIS</button>
+                </div>
+            </main>
+        </div>
+
+        <div id="view-challenges" style="display: none;">
+            <header class="ui-header">
+                <div class="scanline"></div>
+                <h1 class="glitch" data-text="MODO DESAFIOS">MODO DESAFIOS</h1>
+                <p class="ui-subtitle">GUIA EXPLICATIVO: SELECIONE UM CARD PARA PARA MAIS INFORMAÇÕES.</p>
+            </header>
+
+            <main class="ui-content">
+                <section class="mode-section" id="section-time">
+                    <div class="mode-header" onclick="toggleSection('section-time')">
+                        <div class="mode-title-wrapper">
+                            <span class="mode-icon">⏳</span>
+                            <h2>CONTRA O TEMPO</h2>
+                        </div>
+                        <span class="toggle-indicator"></span>
+                    </div>
+
+                    <div class="mode-body" style="display: none;">
+                        <div class="mode-intro">
+                             <li><p>OBJETIVO: COMPLETAR O MÁXIMO DE PUZZLES DENTRO DO TEMPO LIMITE.</p>
+                        </div>
+
+                        <div class="rules-grid">
+                            <div class="rule-box">
+                                <span class="rule-dot"></span>
+                                <li><p>CADA PUZZLE COMPLETADO É SOMADO A PONTUAÇÃO ATUAL.</p>
+                            </div>
+                            <div class="rule-box">
+                                <span class="rule-dot"></span>
+                                <li><p>O TEMPO DE OPERAÇÃO AUMENTA CONFORME CADA DIFICULDADE.</p>
+                            </div>
+                            <div class="rule-box">
+                                <span class="rule-dot"></span>
+                                <li><p>PONTUAÇÃO RESETADA A CADA NOVO NÍVEL DE DIFICULDADE</p>
+                            </div>
+                                <div class="rules-grid">
+                               <div class="rule-box">
+                                  <span class="rule-dot"></span>
+                                <li><p>PARA CADA PAR ENCONTRADO, CONCEDE 50 PONTOS.</p>
+                            </div>
+                            <div class="rules-grid">
+                               <div class="rule-box">
+                                  <span class="rule-dot"></span>
+                                <li><p>CADA PUZZLE COMPLETADO CONCEDE MAIS PONTOS (PTS/PZ - PONTOS POR PUZZLE COMPLETADO).</p>
+                            </div>
+                        </div>
+
+                        <div class="difficulty-container">
+                            <div class="diff-card tier-easy">
+                                <div class="diff-tag">DIFICULDADE</div>
+                                <h3>FÁCIL</h3>
+                                <div class="diff-stats">
+                                    <div class="stat"><span><strong>TEMPO:</strong></span>3 MINUTOS</div>
+                                    <div class="stat"><span><strong>PTS/PZ:</strong></span>500 PONTOS</div>
+                                    <div class="stat"><span><strong>OBJETIVO:</strong></span>4500 PONTOS</div>
+                                    <div class="stat"><span><strong>PRÓXIMO NÍVEL:</strong></span>MÉDIO</div>
+                                </div>
+                            </div>
+                            <div class="diff-card tier-medium">
+                                <div class="diff-tag">DIFICULDADE</div>
+                                <h3>MÉDIO</h3>
+                                <div class="diff-stats">
+                                    <div class="stat"><span><strong>TEMPO:</strong></span>6 MINUTOS</div>
+                                    <div class="stat"><span><strong>PTS/PZ:</strong></span>1000 PONTOS</div>
+                                    <div class="stat"><span><strong>OBJETIVO:</strong></span>8500 PONTOS</div>
+                                   <div class="stat"><span><strong>PRÓXIMO NÍVEL:</strong></span>DIFÍCIL</div>
+                                </div>
+                            </div>
+                            <div class="diff-card tier-hard">
+                                <div class="diff-tag">DIFICULDADE</div>
+                                <h3>DIFÍCIL</h3>
+                                <div class="diff-stats">
+                                    <div class="stat"><span><strong>TEMPO:</strong></span>10 MINUTOS</div>
+                                    <div class="stat"><span><strong>PTS/PZ:</strong></span>2000 PONTOS</div>
+                                    <div class="stat"><span><strong>OBJETIVO:</strong></span>18500 PONTOS</div>
+                                    <div class="stat"><span><strong>DESAFIO:</strong></span>CONCLUÍDO</div>
+                                </div>
+                                <div class="bonus-tip"><li> DESBLOQUEIA DESAFIO BÔNUS (OPCIONAL)</div>
+                            </div>
+                            <div class="diff-card tier-bonus">
+                                <div class="diff-tag">DESAFIO</div>
+                                <h3>BÔNUS ⭐</h3>
+                                <div class="diff-stats">
+                                    <div class="stat"><span><strong>PUZZLES:</strong></span>ALEATÓRIOS</div>
+                                    <div class="stat"><span><strong>N° DE TENTAITVAS:</strong></span>3 </div>
+                                    <div class="stat"><span><strong>TEMPO:</strong></span>15 MINUTOS</div>
+                                    <div class="stat"><span><strong>OBJETIVO:</strong></span>25000 PONTOS</div>
+                                </div>
+                                <div class="bonus-tip"><li>OBSERVAÇÃO: APÓS AS 3 TENTATIVAS, DESAFIO ENCERRADO</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="mode-section" id="section-survival">
+                    <div class="mode-header" onclick="toggleSection('section-survival')">
+                        <div class="mode-title-wrapper">
+                            <span class="mode-icon">☠️</span>
+                            <h2>SOBREVIVÊNCIA</h2>
+                        </div>
+                        <span class="toggle-indicator"></span>
+                    </div>
+
+                    <div class="mode-body" style="display: none;">
+                        <div class="info-banner survival-banner">
+                            <li><p>OBJETIVO: COMPLETAR TODOS OS NIVEIS DE DIFICULDADES SEM PERDER A ÚLTIMA VIDA</p>
+                        </div>
+
+                        <div class="survival-overview">
+                            <div class="memo-box">
+                                <span>🧠 TEMPO PARA MEMORIZAÇÃO INICIAL:<span>
+                                <ul>
+                                    <div class="vitals-row"><li><span><strong>FÁCIL:</strong></span> 6 SEGUNDOS</div>
+                                    <div class="vitals-row"><li><span><strong>MÉDIO:</strong></span> 20 SEGUNDOS</div>    
+                                    <div class="vitals-row"><li><span><strong>DIFÍCIL:</strong></span> 40 SEGUNDOS</div>   
+                                </ul>
+                            </div>
+
+                            <div class="vitals-box">
+                                <span>❤️ UNIDADES DE VIDA: <span>
+                                <div class="vitals-row"><li><span><strong>FÁCIL:</strong></span> ❤️ X3</div>
+                                <div class="vitals-row"><li><span><strong>MÉDIO:</strong></span> ❤️ X6</div>
+                                <div class="vitals-row"><li><span><strong>DIFÍCIL:</strong></span> ❤️ X12</div>
+                            </div>
+                        </div>
+
+                        <div class="systems-grid">
+                            <div class="system-card sos">
+                                <span>🆘 SISTEMA DE AJUDA</span>
+                               <div class="vitals-row"><li><span><strong>DIFICULDADE: </strong></span> FÁCIL</div>
+                                  <div class="vitals-row"><li><span><strong>AJUDA: </strong></span> QUANDO ATINJIR 1 DE VIDA</div>
+                                  <div class="vitals-row"><li><span><strong>TEMPO DE EXIBIÇÃO:</strong></span> 4 Segundos</div>
+                                  <div class="vitals-row"><li><span><strong>OBSERVAÇÃO:</strong></span> A OPÇÃO DE AJUDA NÃO ESTARÁ DISPONÍVEL, CASO HAJA 2 PARES OU MENOS PARA SEREM ENCONTRADOS!</div> 
+                            </div>
+
+                            <div class="system-card extra-1">
+                                <span>🆘 SISTEMA DE AJUDA</span>
+                                  <div class="vitals-row"><li><span><strong>DIFICULDADE: </strong></span> MÉDIO</div>
+                                  <div class="vitals-row"><li><span><strong>AJUDA: </strong></span> QUANDO ATINJIR 3 DE VIDA</div>
+                                  <div class="vitals-row"><li><span><strong>TEMPO DE EXIBIÇÃO:</strong></span> 10 Segundos</div>
+                                  <div class="vitals-row"><li><span><strong>OBSERVAÇÃO:</strong></span> A OPÇÃO DE AJUDA NÃO ESTARÁ DISPONÍVEL, CASO HAJA 4 PARES OU MENOS PARA SEREM ENCONTRADOS!</div>   
+                            </div>
+
+                            <div class="system-card extra-2">
+                                <span>🆘 SISTEMA DE AJUDA</span>
+                                  <div class="vitals-row"><li><span><strong>DIFICULDADE: </strong></span> DIFÍCIL</div>
+                                  <div class="vitals-row"><li><span><strong>AJUDA: </strong></span> QUANDO ATINJIR 6 DE VIDA</div>
+                                  <div class="vitals-row"><li><span><strong>TEMPO DE EXIBIÇÃO:</strong></span> 20 Segundos</div>
+                                  <div class="vitals-row"><li><span><strong>OBSERVAÇÃO:</strong></span> A OPÇÃO DE AJUDA NÃO ESTARÁ DISPONÍVEL, CASO HAJA 6 PARES OU MENOS PARA SEREM ENCONTRADOS!</div>   
+                            </div>
+                            
+                            <div class="system-card combo">
+                                <div class="sys-label">🔥 SISTEMA DE COMBO</div>
+                                <div class="combo-info">
+                                    <div class="vitals-row"><li><span><strong>COMBO: </strong></span> MULTIPLICADOR X10</div>
+                                    <div class="vitals-row"><li><span><strong>REQUESITO: </strong></span> APÓS O 3º ACERTO CONSECUTIVO</div>
+                                    <div class="vitals-row"><li><span><strong>OBSERVAÇÃO:</strong></span> ERROS RESETAM O MULTIPLICADOR DE PONTOS</div>   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <footer class="ui-footer">
+                <button class="btn-back-main" onclick="backToMain()">⬅ VOLTAR PARA SELEÇÃO</button>
+            </footer>
+        </div>
+
+        <footer class="ui-footer">
+            <div class="system-status">
+                <span class="dot-blink"></span> STATUS: TERMINAL_ONLINE
+            </div>
+            <button class="btn-back" onclick="window.location.href='../memorygame/memorygame.html'">ENCERRAR PROTOCOLO</button>
+        </footer>
+    </div>
+
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <script src="instrucoesscript.js"></script>
+</body>
+</html>

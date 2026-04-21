@@ -1,0 +1,316 @@
+:root {
+    --bg-dark: #020508;
+    --panel-bg: rgba(5, 12, 20, 0.9);
+    --cyan: #00f2ff;
+    --green: #39ff14;
+    --purple: #bc13fe;
+    --red: #ff3131;
+    --yellow: #ffd300;
+    --orange: #ff8c00;
+    --text: #e0f7fa;
+    --border-glow: rgba(0, 242, 255, 0.3);
+    --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text);
+    font-family: 'Rajdhani', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    background-image: radial-gradient(circle at center, #0a1a2a 0%, #020508 100%);
+    overflow-x: hidden;
+}
+
+/* Container Principal */
+.ui-wrapper {
+    width: 95%;
+    max-width: 1100px;
+    margin: 2rem 0;
+    animation: fadeIn 0.8s ease;
+}
+
+/* Header Estilizado */
+.ui-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.glitch {
+    font-size: 3.5rem;
+    font-weight: 800;
+    letter-spacing: 5px;
+    color: var(--cyan);
+    text-shadow: 0 0 15px var(--cyan);
+    position: relative;
+}
+
+.ui-subtitle {
+    opacity: 0.6;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+}
+
+/* =========================================================
+   TELA 01: GRID DE SELEÇÃO (OS 3 CARDS)
+   ========================================================= */
+.mode-selection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.main-card {
+    background: var(--panel-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    border-radius: 15px;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.main-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--cyan);
+    box-shadow: 0 10px 30px rgba(0, 242, 255, 0.2);
+}
+
+.card-icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    display: block;
+}
+
+.main-card h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #fff;
+    letter-spacing: 1px;
+}
+
+.main-card p {
+    opacity: 0.7;
+    margin-bottom: 2rem;
+    line-height: 1.4;
+}
+
+/* Botão Saber Mais Estilizado */
+.btn-saber-mais {
+    background: transparent;
+    border: 1px solid var(--cyan);
+    color: var(--cyan);
+    padding: 0.8rem 1.5rem;
+    font-family: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-saber-mais:hover {
+    background: var(--cyan);
+    color: var(--bg-dark);
+    box-shadow: 0 0 15px var(--cyan);
+}
+
+/* Glows Específicos */
+.green-glow { text-shadow: 0 0 15px var(--green); }
+.blue-glow { text-shadow: 0 0 15px var(--cyan); }
+.orange-glow { text-shadow: 0 0 15px var(--orange); }
+
+/* =========================================================
+   TELA 02: PROTOCOLOS E ACCORDIONS (DESAFIOS)
+   ========================================================= */
+.mode-section {
+    background: var(--panel-bg);
+    border: 1px solid var(--border-glow);
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+}
+
+.mode-header {
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    background: linear-gradient(90deg, rgba(0, 242, 255, 0.1) 0%, transparent 100%);
+    transition: var(--transition);
+}
+
+.mode-header:hover { background: rgba(0, 242, 255, 0.2); }
+
+.mode-title-wrapper { display: flex; align-items: center; gap: 1rem; }
+.mode-title-wrapper h2 { font-size: 1.8rem; letter-spacing: 2px; color: var(--cyan); }
+
+.mode-body {
+    padding: 0 2rem 2rem 2rem;
+}
+
+/* Cards de Dificuldade (Tiers) */
+.difficulty-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.diff-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 1.5rem;
+    border-radius: 12px;
+    position: relative;
+    transition: var(--transition);
+}
+
+.stat {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.tier-easy { border-left: 4px solid var(--green); }
+.tier-medium { border-left: 4px solid var(--yellow); }
+.tier-hard { border-left: 4px solid var(--red); }
+.tier-bonus { border: 1px solid var(--purple); background: rgba(188, 19, 254, 0.05); }
+
+/* Sobrevivência e Sistemas */
+.survival-overview {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.memo-box, .vitals-box {
+    background: rgba(0,0,0,0.3);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px dashed rgba(0, 242, 255, 0.3);
+}
+
+.systems-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Mantém 2 colunas */
+    gap: 1.5rem; /* Espaço entre os 4 blocos */
+    margin-top: 1.5rem;
+}
+
+/* Estilo genérico que todos os cards vão usar */
+.system-card {
+    padding: 1.5rem;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05); 
+    border: 1px solid rgba(0, 242, 255, 0.2);
+    transition: var(--transition);
+}
+
+.sos { border: 1px solid var(--purple); background: rgba(188, 19, 254, 0.1); }
+.combo { border: 1px solid var(--red); background: rgba(255, 49, 49, 0.1); }
+
+/* Seus novos blocos */
+.extra-1 { border-color: var(--green); background: rgba(57, 255, 20, 0.1); }
+.extra-2 { border-color: var(--yellow); background: rgba(255, 211, 0, 0.1); }
+
+/* =========================================================
+   MODAL (PARA MODO LIVRE E CRONOMETRADO)
+   ========================================================= */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: var(--panel-bg);
+    border: 2px solid var(--cyan);
+    padding: 3rem;
+    border-radius: 15px;
+    max-width: 600px;
+    width: 90%;
+    position: relative;
+    box-shadow: 0 0 50px rgba(0, 242, 255, 0.3);
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2rem;
+    cursor: pointer;
+    color: var(--cyan);
+}
+
+/* Botão Voltar da Tela de Desafios */
+.btn-back-main {
+    background: transparent;
+    border: 1px solid var(--cyan);
+    color: var(--cyan);
+    padding: 1rem 2rem;
+    font-family: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 2rem;
+    transition: var(--transition);
+}
+
+.btn-back-main:hover {
+    background: rgba(0, 242, 255, 0.1);
+    box-shadow: 0 0 15px var(--cyan);
+}
+
+/* Footer e Status */
+.ui-footer {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-top: 1px solid rgba(0, 242, 255, 0.2);
+}
+
+.btn-back {
+    background: transparent;
+    border: 1px solid var(--red);
+    color: var(--red);
+    padding: 0.8rem 1.5rem;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 700;
+    transition: var(--transition);
+}
+
+.btn-back:hover {
+    background: var(--red);
+    color: white;
+    box-shadow: 0 0 20px var(--red);
+}
+
+/* Animações e Mobile */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 768px) {
+    .mode-selection-grid, .survival-overview, .systems-grid { grid-template-columns: 1fr; }
+    .glitch { font-size: 2.2rem; }
+}

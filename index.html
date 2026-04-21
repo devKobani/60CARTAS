@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Master - Seleção de Modo</title>
+    <link rel="stylesheet" href="selecaodejogo.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <main class="main-container">
+        <header class="header-section">
+            <h1 class="main-title">MEMORY<span>MASTER</span></h1>
+            <p class="subtitle">Escolha seu desafio e comece a jogar</p>
+        </header>
+
+        <section class="modes-grid">
+            <div class="card" data-mode="livre">
+                <div class="card-icon">🧩</div>
+                <h2 class="card-title">Modo Livre</h2>
+                <p class="card-description">Jogue sem limites de tempo, no seu ritmo.</p>
+                <button class="play-button" onclick="selectMode('memorygame/memorygame.html')">Jogar</button>
+            </div>
+
+            <div class="card" data-mode="tempo">
+                <div class="card-icon">⏱️</div>
+                <h2 class="card-title">Cronometrado</h2>
+                <p class="card-description">Desafie o tempo e complete o jogo antes que acabe!</p>
+                <button class="play-button" onclick="selectMode('cronometro.html')">Jogar</button>
+            </div>
+
+            <div class="card" data-mode="desafio">
+                <div class="card-icon">🏆</div>
+                <h2 class="card-title">Desafios</h2>
+                <p class="card-description">Enfrente níveis com dificuldades progressivas.</p>
+                <button class="play-button" onclick="selectMode('desafios.html')">Jogar</button>
+            </div>
+
+            <div class="card" data-mode="custom">
+                <div class="card-icon">⚙️</div>
+                <h2 class="card-title">Customizado</h2>
+                <p class="card-description">Configure seu próprio modo de jogo.</p>
+                <button class="play-button" onclick="selectMode('customizado.html')">Jogar</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="selecaodejogo.js"></script>
+</body>
+</html>

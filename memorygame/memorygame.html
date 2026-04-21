@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Master Pro - Edição Cronometrada</title>
+    
+    <style>
+        .no-transition * { transition: none !important; }
+    </style>
+
+    <script>
+        (function() {
+            const saved = localStorage.getItem('memoryMasterTheme');
+            if (saved) {
+                const theme = JSON.parse(saved);
+                for (const [variable, value] of Object.entries(theme)) {
+                    document.documentElement.setProperty(variable, value);
+                }
+            }
+        })();
+    </script>
+
+    <link rel="stylesheet" href="memorygame.css">
+</head>
+
+<body class="no-transition"> 
+    <div id="wallpaper-background"></div>
+
+    <button id="logout-btn" class="logout-fab" onclick="voltarParaSelecao()" title="Sair">
+    <span class="power-icon-css"></span>
+</button>
+    </button>
+
+    <div class="container">
+        
+        <section id="menu-screen" class="screen active">
+            <h1>MEMORY <span>MASTER</span></h1>
+            
+            <div class="settings">
+                <div class="group">
+                    <label>Temas</label>
+                    <select id="game-theme">
+                        <option value="random">🎲 Aleatório</option>
+                        <option value="naruto">Naruto</option>
+                        <option value="jujutsu">Jujutsu Kaisen</option>
+                        <option value="kimetsu">Demon Slayer</option>
+                    </select>
+                </div>
+
+                <div class="group">
+                    <label>Dificuldade</label>
+                    <select id="game-difficulty">
+                        <option value="random">🎲 Aleatória</option>
+                        <option value="16">Fácil (16 cartas)</option>
+                        <option value="32">Médio (32 cartas)</option>
+                        <option value="60">Difícil (60 cartas)</option>
+                    </select>
+                </div>
+            </div>
+            
+            <button id="start-btn" class="main-btn" onclick="startGame()">JOGAR</button>
+        </section>
+
+        <div id="side-menu-wrapper">
+            <button id="fab-main" title="Menu de Ferramentas">
+                <span class="fab-icon">⚡</span>
+            </button>
+
+            <aside id="sidebar-tools">
+                <div class="sidebar-content">
+                    <div class="tool-item">
+                        <button id="wallpaper-toggle" class="side-btn" title="Wallpapers">🖼️</button>
+                        <span class="tool-label">Wallpaper</span>
+                    </div>
+
+                    <div class="tool-item">
+                        <button id="theme-toggle" class="side-btn" title="Personalizar Cores">🎨</button>
+                        <span class="tool-label">Temas</span>
+                    </div>
+
+                    <div class="tool-item">
+                        <button id="player-toggle" class="side-btn" title="Music Player">🎧</button>
+                        <span class="tool-label">Música</span>
+                    </div>
+
+                    <div class="tool-item">
+                        <button id="instructions-btn" class="side-btn" title="Saiba Mais" onclick="window.location.href='../instrucoess/instrucoes.html'">ℹ️</button>
+                        <span class="tool-label">Saiba+</span>
+
+                    <div class="tool-item">
+                        <button class="side-btn" id="sfx-toggle-btn" onclick="toggleSFX()">🔊</button>
+                        <span class="tool-label">SFX ON</span>
+                    </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+
+        <aside id="wallpaper-panel">
+            <h3 style="margin-bottom:15px; font-size: 1rem; color: var(--accent)">Wallpapers</h3>
+            <div class="wallpaper-grid" id="wallpaper-options"></div>
+            
+            <div class="parallax-controls-new" style="margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px;">
+                <label style="display:block; font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; margin-bottom: 10px;">Modo de Exibição</label>
+                <div class="effect-button-group">
+                    <button class="effect-btn active" id="btn-static">🎨 Estático</button>
+                    <button class="effect-btn" id="btn-parallax">✨ Parallax</button>
+                </div>
+            </div>
+            <button class="reset-wallpaper">❌ Remover Wallpaper</button>
+        </aside>
+
+        <aside id="theme-panel">
+            <h3 style="margin-bottom:15px; font-size: 1rem; color: var(--accent)">Customizar Tema</h3>
+            
+            <div class="theme-group">
+                <label>Cor Principal</label>
+                <div class="color-grid" id="grid-accent"></div>
+            </div>
+            
+            <div class="theme-group">
+                <label>Fundo (Background)</label>
+                <div class="color-grid" id="grid-bg"></div>
+            </div>
+            
+            <div class="theme-group">
+                <label>Cor do Contorno</label>
+                <div class="color-grid" id="grid-outline"></div>
+            </div>
+            
+            <div class="theme-group" style="margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px;">
+                <label style="font-size: 0.75rem; color: #94a3b8; text-transform: uppercase;">Presets Rápidos</label>
+                <div class="preset-grid" id="grid-presets"></div>
+            </div>
+            
+            <button class="reset-theme">Resetar para o Padrão</button>
+        </aside>
+
+        <div id="music-player-container">
+            <div id="music-panel">
+                <div class="panel-header">
+                    <h3>MUSIC PLAYER</h3>
+                </div>
+                
+                <div class="now-playing">
+                    <p id="track-name">Nenhuma música tocando</p>
+                </div>
+
+                <div class="player-controls">
+                    <div class="main-btns">
+                        <button id="prev-btn" title="Anterior">⏮</button>
+                        <button id="play-pause-btn" title="Play/Pause">▶</button>
+                        <button id="next-btn" title="Próxima">⏭</button>
+                    </div>
+                    
+                    <div class="extra-btns">
+                        <button id="shuffle-btn" class="toggle-btn" title="RANDOM">
+                            <span class="icon">🔀</span>
+                            <span class="status">OFF</span>
+                        </button>
+                        <button id="loop-btn" class="toggle-btn" title="LOOP">
+                            <span class="icon">🔁</span>
+                            <span class="status">OFF</span>
+                        </button>
+                        <button id="mute-btn" title="MUTE">🔊</button>
+                    </div>
+
+                    <div class="volume-container">
+                        <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0.5">
+                    </div>
+                </div>
+
+                <div class="playlist-section">
+                    <div class="tabs">
+                        <button class="tab-btn active" onclick="switchTab('opening')">OPENINGS</button>
+                        <button class="tab-btn" onclick="switchTab('ending')">ENDINGS</button>
+                    </div>
+                    <ul id="track-list"></ul>
+                </div>
+            </div>
+        </div>
+        <audio id="main-audio"></audio>
+
+        <section id="game-screen" class="screen">
+            <header class="hud">
+                <div class="hud-content">
+                    <div class="stat">Modo: <span id="display-mode">MODO LIVRE</span></div>
+                    <div class="stat">Tema: <span id="current-theme">---</span></div>
+                    <div class="stat">Dificuldade: <span id="current-difficulty">---</span></div> 
+                    <div class="stat">Movs: <span id="moves">0</span></div>
+                </div>
+            </header>
+
+            <div id="game-board" class="grid"></div>
+
+            <footer class="controls">
+                <button id="help-btn" onclick="useHelp()">Ajuda (Revelar)</button>
+                <button id="pause-btn" onclick="togglePause()">Pausar</button>
+            </footer>
+        </section>
+
+        <div id="overlay">
+            <div class="modal">
+                <h2 id="modal-title">AVISO</h2>
+                <div id="modal-content"></div>
+                <div id="dynamic-buttons"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="memorygame.js"></script>
+    <script src="../selecaodejogo.js"></script>
+
+    <script>
+        window.addEventListener('load', () => {
+            requestAnimationFrame(() => {
+                document.body.classList.remove('no-transition');
+            });
+        });
+    </script>
+</body>
+</html>
