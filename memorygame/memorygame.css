@@ -119,8 +119,8 @@ select { padding: 12px; border-radius: 8px; background: var(--card-back); color:
 
     /* MODO DIFÍCIL (60 cartas): Mantém o tamanho menor para caberem 10 colunas */
     .grid[data-diff="60"] .card {
-        --card-w: 78px;
-        --card-h: 118px;
+        --card-w: 75px;
+        --card-h: 115px;
     }
 }
 
